@@ -11,4 +11,12 @@ Get-DbaDbOrphanUser -SqlInstance udr-cq-sqlc1.udr.osl.basefarm.net  | Format-Tab
 
 
 ############################### Remove orphan users ##############################
-Remove-DbaDbOrphanUser -SqlInstance udr-cq-sqlc1.udr.osl.basefarm.net -Database UBAS_Copy -Verbose
+Remove-DbaDbOrphanUser -SqlInstance udr-co-sqlc1.udr.osl.basefarm.net -Database id-ops-prod, id-prod, id-worker-prod, pas2-prod, prover-prod -Verbose
+
+
+############################### Get Login ##############################
+Get-DbaLogin -SqlInstance udr-co-sqlc1.udr.osl.basefarm.net | Out-GridView
+
+
+############################### Copy Login ##############################
+Get-DbaLogin -SqlInstance EPS-P-SQLC01W03\DAGENSINDUSTRI | Out-GridView -Passthru | Copy-DbaLogin -Destination bbm-p-mssql101.ad.dex.nu\BBMEDIA
