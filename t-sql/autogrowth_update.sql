@@ -11,8 +11,7 @@ CREATE TABLE ##spacetemp
 
 DECLARE db_cursor CURSOR READ_ONLY FOR  
 SELECT name
-FROM master.dbo.sysdatabases where sysdatabases.dbid
-
+FROM master.dbo.sysdatabases
 OPEN db_cursor   
 FETCH NEXT FROM db_cursor INTO @name
  
