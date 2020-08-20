@@ -25,3 +25,8 @@ expand-cloVirtualHardDisk -VirtualHardDiskSizeGB 850 -VMname ind-pc-brt01.ind.st
 # set spn
 setspn -S MSSQLSvc/udr-co-sqlb1.udr.osl.basefarm.net:SHAREPOINT UDR\udr-co-sqlb-ss
 setspn -S MSSQLSvc/udr-co-sqlb1.udr.osl.basefarm.net:14301 UDR\udr-co-sqlb-ss
+
+###########################################################################################
+
+# get event log
+get-eventlog -logname system -source user32 -newest 2 | ft -wrap
