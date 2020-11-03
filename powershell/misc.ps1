@@ -29,4 +29,4 @@ setspn -S MSSQLSvc/udr-co-sqlb1.udr.osl.basefarm.net:14301 UDR\udr-co-sqlb-ss
 ###########################################################################################
 
 # get event log
-get-eventlog -logname system -source user32 -newest 2 | ft -wrap
+get-eventlog -logname system -source user32 -newest 2 | Format-Table -wrap
