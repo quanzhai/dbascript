@@ -13,7 +13,7 @@ new-cloVirtualDiskDrive -VMname [hostname] -VirtualHardDiskSizeGB 5 -diskname te
 ###########################################################################################
 
 # get disk
-get-cloVirtualMachineDisk -VMname ind-pc-brt01.ind.sth.basefarm.net -outgridview
+get-cloVirtualMachineDisk -VMname bf-omdb-ops02.mgmt.basefarm.net -outgridview
 
 ###########################################################################################
 
