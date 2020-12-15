@@ -16,4 +16,8 @@ Restore-DbaDatabase -SqlInstance UDR-CQ-SQLA1 -Path E:\Data\MSSQLSERVER\Backups\
   
 ############################### Add database to AG ##############################
 Get-DbaDatabase -SqlInstance UDR-CQ-SQLA1 | Where-Object {($_.Name -ne 'master') -and ($_.Name -ne 'msdb') -and ($_.Name -ne 'model') -and ($_.Name -ne 'tempdb') -and ($_.Name -ne 'bf_dba') } | Out-GridView -Passthru | Add-DbaAgDatabase -AvailabilityGroup udr-cq-sqlaa1 -SharedPath \\udr-cq-sqla1\AGShare-MSSQLSERVER
+Get-DbaDatabase -SqlInstance UDR-CQ-SQLc2 | Out-GridView -Passthru | Add-DbaAgDatabase -AvailabilityGroup udr-cq-sqlca1
 
+
+############################### Remove database from AG ##############################
+Remove-DbaAgDatabase -SqlInstance udr-cq-sqlc2 -AvailabilityGroup udr-cq-sqlca1 -Database Udir.Epi, Udir.LPV, Udir.Ext -Confirm:$false

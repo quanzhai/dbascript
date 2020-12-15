@@ -20,3 +20,9 @@ Get-DbaLogin -SqlInstance udr-co-sqlc1.udr.osl.basefarm.net | Out-GridView
 
 ############################### Copy Login ##############################
 Get-DbaLogin -SqlInstance EPS-P-SQLC01W03\DAGENSINDUSTRI | Out-GridView -Passthru | Copy-DbaLogin -Destination bbm-p-mssql101.ad.dex.nu\BBMEDIA
+
+############################### DB filespace usage ##############################
+Get-DbaDbSpace -SqlInstance SKL-P-C1SQLW01.kolan.org | Where-Object {$_.FileType -eq "Log"} | Format-Table ComputerName,InstanceName,SqlInstance,Database,FileName,FileGroup,PhysicalName,FileType,UsedSpace,FreeSpace,PercentUsed
+
+############################### Server diska space ##############################
+Get-DbaDiskSpace -ComputerName SKL-P-C1SQLW01.kolan.org | Where-Object{$_.Label -like 'Log%'}
