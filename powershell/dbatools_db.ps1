@@ -1,5 +1,5 @@
 ############################### Get db growth event ##############################
-Find-DbaDbGrowthEvent -SqlInstance scb-pr-dkdbn03.scb.osl.basefarm.net -Database tempdb | Format-table
+Find-DbaDbGrowthEvent -SqlInstance baq-p-db02.prodno.osl.basefarm.net,14302 -Database tempdb | Format-table
 
   
 ############################### Find instance ##############################
@@ -21,3 +21,11 @@ Get-DbaDatabase -SqlInstance UDR-CQ-SQLc2 | Out-GridView -Passthru | Add-DbaAgDa
 
 ############################### Remove database from AG ##############################
 Remove-DbaAgDatabase -SqlInstance udr-cq-sqlc2 -AvailabilityGroup udr-cq-sqlca1 -Database Udir.Epi, Udir.LPV, Udir.Ext -Confirm:$false
+
+
+############################### Get disk space ##############################
+Get-DbaDiskSpace -ComputerName SCB-PP-SEDBN01.SCB.OSL.BASEFARM.NET   -ExcludeDrive 'C:\'   | Where-Object {$_.Name -like '*Log*'}
+
+
+############################### Get last backup ##############################
+Get-DbaLastBackup -SqlInstance SCB-PP-SEDBN01.SCB.OSL.BASEFARM.NET   | Format-Table
