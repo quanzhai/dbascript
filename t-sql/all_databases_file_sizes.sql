@@ -12,3 +12,12 @@ FROM sys.master_files m
 INNER JOIN sys.databases d ON d.database_id = m.database_id
 where m.type_desc in ('rows', 'log')
 order by m.size desc
+
+
+--Only total space usage
+SELECT distinct
+    d.name AS 'Database',
+    cast(SUM(cast(m.size as float) * 8/1024/1024) OVER (PARTITION BY d.name)  as varchar) + ' (GB)' AS 'Database Total'
+FROM sys.master_files m
+INNER JOIN sys.databases d ON d.database_id = m.database_id
+where m.type_desc in ('rows', 'log') and d.database_id > 4
