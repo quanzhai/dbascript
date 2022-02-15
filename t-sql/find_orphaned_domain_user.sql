@@ -9,7 +9,7 @@ DECLARE c1 CURSOR FOR
 SELECT dp.NAME 
 FROM   sys.database_principals dp 
 LEFT JOIN sys.server_principals sp ON dp.sid = sp.sid 
-WHERE  dp.type_desc = 'WINDOWS_USER' 
+WHERE   (dp.type_desc = 'WINDOWS_USER' or dp.type_desc = 'WINDOWS_GROUP') 
 AND dp.authentication_type_desc = 'WINDOWS'
 AND dp.principal_id != 1 
 AND sp.sid IS NULL 

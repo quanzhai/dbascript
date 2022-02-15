@@ -12,6 +12,7 @@ SELECT DS.name AS DataSpaceName
       ,IDX.type_desc AS IndexType 
       ,IDX.name AS IndexName 
       ,PA.data_compression_desc AS Compression
+      ,PA.rows
 FROM sys.data_spaces AS DS 
      INNER JOIN sys.allocation_units AS AU 
          ON DS.data_space_id = AU.data_space_id 

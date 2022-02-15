@@ -30,3 +30,6 @@ setspn -S MSSQLSvc/udr-co-sqlb1.udr.osl.basefarm.net:14301 UDR\udr-co-sqlb-ss
 
 # get event log
 get-eventlog -logname system -source user32 -newest 2 | Format-Table -wrap
+
+# Add SQLPS module if it is not included
+$env:PSModulePath = $env:PSModulePath + ";C:\Program Files (x86)\Microsoft SQL Server\150\Tools\PowerShell\Modules"
