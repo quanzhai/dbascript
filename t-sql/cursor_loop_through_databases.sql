@@ -14,7 +14,7 @@ BEGIN
 	--SET @SQL = 'ALTER DATABASE [' + @DBName + '] SET RECOVERY FULL' 
 	--SET @SQL = 'USE '+@DBName+'; CREATE USER [SCB\scb.secure.sql.COMMON.Exstream_all.Read] FOR LOGIN [SCB\scb.secure.sql.COMMON.Exstream_all.Read];'
 	--SET @SQL = 'USE '+@DBName+'; ALTER ROLE [db_datareader] ADD MEMBER [SCB\scb.secure.sql.COMMON.Exstream_all.Read];'
-	--SET @SQL = 'USE '+@DBName+'; ALTER USER [SCB\scb.secure.sql.COMMON.Exstream_all.Read] WITH DEFAULT_SCHEMA=[dbo];'
+	SET @SQL = 'USE '+@DBName+'; ALTER USER [SCB\scb.secure.sql.COMMON.Exstream_all.Read] WITH DEFAULT_SCHEMA=[dbo];'
 	PRINT @SQL 
     --EXECUTE sp_executesql @sql 
     FETCH next FROM FULLRECOVERY INTO @DBName 
