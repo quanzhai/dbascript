@@ -4,6 +4,32 @@ SELECT DB_NAME(database_id) AS [Database Name],
 FROM sys.dm_tran_version_store_space_usage WITH (NOLOCK) 
 ORDER BY reserved_space_kb/1024 DESC OPTION (RECOMPILE);
 
+/* 
+https://thesurfingdba.weebly.com/my-version-store-is-huge.html 
+*/
+
+SELECT
+SUM (user_object_reserved_page_count)*8/1024.0/1024.0 as user_obj_GB,
+SUM (internal_object_reserved_page_count)*8/1024.0/1024.0 as internal_obj_GB,
+SUM (version_store_reserved_page_count)*8/1024.0/1024.0  as version_store_GB,
+SUM (unallocated_extent_page_count)*8/1024.0/1024.0 as freespace_GB,
+SUM (mixed_extent_page_count)*8/1024.0/1024.0 as mixedextent_GB
+FROM sys.dm_db_file_space_usage
+
+/* 
+The below query shows us active transactions and active transactions being used by RCSI.  
+*/
+
+select
+t.transaction_id,t.name,t.transaction_type, t.transaction_state,
+s.transaction_id,s.session_id,
+s.elapsed_time_seconds/60/60.0 as hours_tran_has_been_open,  p.status, p.cmd
+from sys.dm_tran_active_transactions t
+  join sys.dm_tran_active_snapshot_database_transactions s
+     on t.transaction_id = s.transaction_id
+  join sys.sysprocesses p
+     on p.spid = s.session_id
+
 /*
 https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms186328(v=sql.105)
 */
@@ -46,3 +72,4 @@ CROSS APPLY sys.dm_sql_referencing_entities
 WHERE vs.database_id = DB_ID()
 AND p.index_id IN (0,1)
 ORDER BY size DESC, referenced_by;
+

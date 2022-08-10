@@ -20,3 +20,6 @@ GO
 
 sp_Blitzindex @Mode=4
 GO
+
+
+EXEC dbo.sp_BlitzFirst @Seconds = 30, @ExpertMode = 1;
