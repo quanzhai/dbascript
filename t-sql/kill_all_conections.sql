@@ -1,7 +1,19 @@
+/*
+Script kills all SPIDs on a specified database (@MyDB)
+*/
 
 DECLARE @MyDB AS char(20)
 -- Change DB here
-SET @MyDB = 'xxx'
+SET @MyDB = 'ProcessControl'
+
+
+
+-- Do not change below this line -----------------
+-- Creates a temptable to keep track on what SPIDs that are gone
+
+CREATE TABLE #KILLIST (
+	MySPID INT,
+	MyDate char(20))
 
 DECLARE @MySPID varchar(50)
 DECLARE MyKILL_Cursor CURSOR FOR
@@ -29,3 +41,12 @@ END
 -- Close and Dealocate Cursor
 CLOSE MyKILL_Cursor
 DEALLOCATE MyKILL_Cursor
+
+-- Skriv ut vilka vi kört kill på
+SELECT MySPID AS SPID, MyDate AS Killed_TIME 
+FROM #KILLIST
+
+drop table #KILLIST
+
+
+
